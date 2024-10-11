@@ -70,5 +70,7 @@ sudo snap install docker
 sudo timedatectl set-timezone Europe/Zurich
 
 sudo apt install terminator
+
+mkdir RosShared										### for using WebBots on the mac host
 ```
 
