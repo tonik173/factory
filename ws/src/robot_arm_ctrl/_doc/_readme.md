@@ -46,6 +46,8 @@ Open another terminal and run
 ros2 control list_hardware_interfaces
 ros2 control list_controllers
 ros2 control list_hardware_components -v
+
+ros2 control set_controller_state joint_trajectory_position_controller active
 ```
 
 Replace controller
@@ -55,6 +57,9 @@ ros2 control load_controller joint_trajectory_position_controller --set-state in
 ros2 control switch_controllers --activate joint_trajectory_position_controller --deactivate forward_position_controller
 ros2 launch robot_arm_ctrl test_joint_trajectory_controller.launch.py
 ```
+
+
+ros2 run rqt_controller_manager rqt_controller_manager
 
 ### ros2 control commands
 
