@@ -1,0 +1,21 @@
+services:
+
+  # ROS2
+  ros:
+    build: .
+    container_name: arm-multipass-jazzy
+    user: 1001:1001
+    args:
+      USERNAME: ${USERNAME}
+      USERID: ${USERID}
+      GROUPID: ${GROUPID}
+
+    environment:
+      - "DISPLAY"
+    volumes:
+      - /home/$USER/github/factory:/home/${USERNAME}/github/factory
+    tty: true
+    network_mode: host
+    ipc: host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -1,0 +1,17 @@
+{
+	"folders": [
+
+		{
+			"name": "DOCUMENTATION",
+			"path": "doc",
+		},
+		{
+			"name": "ROS2",
+			"path": "ws",
+		},
+		{
+			"name": "DOCKER",
+			"path": "docker",
+		}
+	]
+}
