@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="robot_arm_ros2_control" params="
+                  name 
+                  name2 
+                  prefix
+                  hardware_driver
+                  mock_sensor_commands:=^|false">
+
+    <ros2_control name="${name}" type="system">
+
+      <hardware>
+        <!-- The real hardware driver -->
+        <xacro:if value="${hardware_driver == 'real'}">
+          <plugin>robot_arm_ctrl/RobotArmHardwareDriver</plugin>
+          <param name="slowdown">200</param>
+          <param name="max_sensor_change">5.0</param>
+        </xacro:if>
+
+        <!-- A simple mock driver which basically routes the input values to the output -->
+        <xacro:if value="${hardware_driver == 'mock'}">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="mock_sensor_commands">${mock_sensor_commands}</param>
+        </xacro:if>
+
+        <!-- Simulation using Gazebo -->
+        <xacro:if value="${hardware_driver == 'gazebo'}">
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </xacro:if>
+
+        <!-- Simulation using Webots -->
+        <xacro:if value="${hardware_driver == 'webots'}">
+          <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+        </xacro:if>
+      </hardware>
+
+      <joint name="${prefix}shoulder_joint">
+        <command_interface name="position">
+          <param name="min">-${pi}</param>
+          <param name="max">${pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="${prefix}upper_arm_joint">
+        <command_interface name="position">
+          <param name="min">-${pi/2}</param>
+          <param name="max">1.3</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="${prefix}middle_arm_joint">
+        <command_interface name="position">
+          <param name="min">-${pi/2}</param>
+          <param name="max">1.0</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="${prefix}fore_arm_joint">
+        <command_interface name="position">
+          <param name="min">-${pi}</param>
+          <param name="max">1.0</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <sensor name="${prefix}tcp_fts_sensor">
+        <state_interface name="force.x"/>
+        <state_interface name="torque.z"/>
+        <param name="frame_id">tool_link</param>
+        <param name="fx_range">100</param>
+        <param name="tz_range">15</param>
+      </sensor>
+      
+    </ros2_control>
+
+    <ros2_control name="${name2}" type="system">
+
+      <hardware>
+        <!-- The real hardware driver -->
+        <xacro:if value="${hardware_driver == 'real'}">
+          <plugin>robot_arm_ctrl/RobotArmHardwareDriver</plugin>
+          <param name="slowdown">200</param>
+          <param name="max_sensor_change">5.0</param>
+        </xacro:if>
+
+        <!-- A simple mock driver which basically routes the input values to the output -->
+        <xacro:if value="${hardware_driver == 'mock'}">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="mock_sensor_commands">${mock_sensor_commands}</param>
+        </xacro:if>
+
+        <!-- Simulation using Gazebo -->
+        <xacro:if value="${hardware_driver == 'gazebo'}">
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </xacro:if>
+
+        <!-- Simulation using Webots -->
+        <xacro:if value="${hardware_driver == 'webots'}">
+          <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+        </xacro:if>
+      </hardware>
+
+      <joint name="${prefix}effector_joint">
+        <command_interface name="position">
+          <param name="min">0</param>
+          <param name="max">${pi}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.001</param>
+        </state_interface>
+        <state_interface name="velocity"/>   
+      </joint>   
+      
+      <joint name="${prefix}finger_left_joint">
+        <command_interface name="position">
+          <param name="min">-0.03</param>
+          <param name="max">0</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">-0.001</param>
+        </state_interface>
+        <state_interface name="velocity"/>   
+      </joint>   
+
+      <joint name="${prefix}finger_right_joint">
+        <command_interface name="position">
+          <param name="min">0</param>
+          <param name="max">0.03</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.001</param>
+        </state_interface>
+        <state_interface name="velocity"/>    
+      </joint>  
+
+      <sensor name="${prefix}tcp_fts_sensor">
+        <state_interface name="force.x"/>
+        <state_interface name="torque.z"/>
+        <param name="frame_id">tool_link</param>
+        <param name="fx_range">100</param>
+        <param name="tz_range">15</param>
+      </sensor>
+
+    </ros2_control>
+  
+  </xacro:macro>
+</robot>

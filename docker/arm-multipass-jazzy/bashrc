@@ -9,3 +9,17 @@ source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_cd/function/colcon_cd-argcomplete.bash
 
+# webots
+export WEBOTS_SHARED_FOLDER=/Users/komax/RosShared:/home/kaan/RosShared
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/ros/jazzy/lib/controller
+
+# local
+export MY_LOCAL_WS=$HOME/github/factory/ws
+
+# sources local workspace
+if [ -d "$MY_LOCAL_WS/install" ]; then
+    source $MY_LOCAL_WS/install/setup.bash
+    cd $MY_LOCAL_WS
+else
+    echo "Don't forget to source local projects!"
+fi

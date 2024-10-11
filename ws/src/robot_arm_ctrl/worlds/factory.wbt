@@ -1,0 +1,474 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Parquetry.proto"
+
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      maxContactJoints 30
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.14051702533399538 0.2809081711884309 -0.9493922081789256 0.9678709058990816
+  position -1.7403491866205767 2.263669997034515 1.185506577447627
+}
+Floor {
+  size 2 2
+  appearance Parquetry {
+    type "chequered"
+    colorOverride 0.260517 0.260517 0.260517
+    textureTransform TextureTransform {
+    }
+    IBLStrength 0
+  }
+}
+TexturedBackground {
+  texture "mars"
+}
+TexturedBackgroundLight {
+}
+DEF robot Robot {
+  children [
+    Solid {
+      rotation 0 0 1 3.141593
+      children [
+        Shape {
+          appearance DEF gray PBRAppearance {
+            baseColor 0.570459 0.570474 0.570459
+            roughness 1
+            metalness 0
+          }
+          geometry DEF base_link Mesh {
+            url [
+              "meshes/base_link.obj"
+            ]
+          }
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 0 1
+            anchor 0 0 0.2
+          }
+          device [
+            RotationalMotor {
+              name "shoulder_joint"
+              minPosition -3.142
+              maxPosition 3.142
+              maxTorque 1000
+            }
+            PositionSensor {
+              name "shoulder_joint_sensor"
+            }
+          ]
+          endPoint Solid {
+            translation 0 0 0.2
+            rotation 0.5773502691896258 0.5773502691896258 0.5773502691896258 2.094395
+            children [
+              Shape {
+                appearance DEF white PBRAppearance {
+                  baseColor 0.5 0.5 0.5
+                  roughness 1
+                  metalness 0
+                }
+                geometry DEF shoulder_link Mesh {
+                  url [
+                    "meshes/shoulder_link.obj"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 0 1
+                  anchor 0 0.205 0
+                }
+                device [
+                  RotationalMotor {
+                    name "upper_arm_joint"
+                    maxVelocity 3
+                    minPosition -1.57
+                    maxPosition 1.3
+                    maxTorque 200
+                  }
+                  PositionSensor {
+                    name "upper_arm_joint_sensor"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0 0.205 0
+                  children [
+                    Shape {
+                      appearance USE gray
+                      geometry DEF upper_arm_link Mesh {
+                        url [
+                          "meshes/upper_arm_link.obj"
+                        ]
+                      }
+                    }
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        axis 0 0 1
+                        anchor 0 0.4 0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "middle_arm_joint"
+                          maxVelocity 3
+                          minPosition -1.5
+                          maxPosition 1
+                          maxTorque 200
+                        }
+                        PositionSensor {
+                          name "middle_arm_joint_sensor"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0 0.4 0
+                        children [
+                          Shape {
+                            appearance USE gray
+                            geometry DEF middle_arm_link Mesh {
+                              url [
+                                "meshes/middle_arm_link.obj"
+                              ]
+                            }
+                          }
+                          HingeJoint {
+                            jointParameters HingeJointParameters {
+                              axis 0 0 1
+                              anchor -0.35 0 0
+                            }
+                            device [
+                              RotationalMotor {
+                                name "fore_arm_joint"
+                                maxVelocity 3
+                                minPosition -3.142
+                                maxPosition 1
+                                maxTorque 200
+                              }
+                              PositionSensor {
+                                name "fore_arm_joint_sensor"
+                              }
+                            ]
+                            endPoint Solid {
+                              translation -0.35 0 0
+                              rotation 0 0 1 1.570796
+                              children [
+                                Shape {
+                                  appearance USE gray
+                                  geometry DEF fore_arm_link Mesh {
+                                    url [
+                                      "meshes/fore_arm_link.obj"
+                                    ]
+                                  }
+                                }
+                                HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    anchor -0.188 0 0
+                                  }
+                                  device [
+                                    RotationalMotor {
+                                      name "effector_joint"
+                                      maxVelocity 3
+                                      minPosition -0.1
+                                      maxPosition 3.142
+                                      maxTorque 200
+                                    }
+                                    PositionSensor {
+                                      name "effector_joint_sensor"
+                                    }
+                                  ]
+                                  endPoint Solid {
+                                    translation -0.188 0 0
+                                    children [
+                                      Shape {
+                                        appearance USE gray
+                                        geometry DEF effector_link Mesh {
+                                          url [
+                                            "meshes/effector_link.obj"
+                                          ]
+                                        }
+                                      }
+                                      SliderJoint {
+                                        jointParameters JointParameters {
+                                          axis 0 0 -1
+                                        }
+                                        device [
+                                          LinearMotor {
+                                            name "finger_right_joint"
+                                            maxVelocity 3
+                                            minPosition -0.1
+                                            maxPosition 0.05
+                                            maxForce 100
+                                          }
+                                          PositionSensor {
+                                            name "finger_right_joint_sensor"
+                                          }
+                                        ]
+                                        endPoint Solid {
+                                          translation 0.54 -0.4 0
+                                          children [
+                                            Shape {
+                                              appearance USE gray
+                                              geometry DEF finger_right_link Mesh {
+                                                url [
+                                                  "meshes/finger_right_link.obj"
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                          name "finger_right_link"
+                                          boundingObject USE finger_right_link
+                                          physics Physics {
+                                            density -1
+                                            mass 0.1
+                                            centerOfMass [
+                                              0 0 0
+                                            ]
+                                            inertiaMatrix [
+                                              0.001 0.001 0.001
+                                              0 0 0
+                                            ]
+                                          }
+                                        }
+                                      }
+                                      SliderJoint {
+                                        jointParameters JointParameters {
+                                          axis 0 0 -1
+                                        }
+                                        device [
+                                          LinearMotor {
+                                            name "finger_left_joint"
+                                            maxVelocity 3
+                                            minPosition -0.03
+                                            maxPosition 0.05
+                                            maxForce 100
+                                          }
+                                          PositionSensor {
+                                            name "finger_left_joint_sensor"
+                                          }
+                                        ]
+                                        endPoint Solid {
+                                          translation 0.54 0.4 0
+                                          rotation 1 0 0 3.141593
+                                          children [
+                                            Shape {
+                                              appearance USE gray
+                                              geometry DEF finger_left_link Mesh {
+                                                url [
+                                                  "meshes/finger_left_link.obj"
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                          name "finger_left_link"
+                                          boundingObject USE finger_left_link
+                                          physics Physics {
+                                            density -1
+                                            mass 0.1
+                                            centerOfMass [
+                                              0 0 0
+                                            ]
+                                            inertiaMatrix [
+                                              0.001 0.001 0.001
+                                              0 0 0
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                    name "effector_link"
+                                    boundingObject USE effector_link
+                                    physics Physics {
+                                      density -1
+                                      mass 0.2
+                                      centerOfMass [
+                                        0 0 0
+                                      ]
+                                      inertiaMatrix [
+                                        0.001 0.001 0.001
+                                        0 0 0
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                              name "fore_arm_link"
+                              boundingObject USE fore_arm_link
+                              physics Physics {
+                                density -1
+                                mass 0.4
+                                centerOfMass [
+                                  0 0 0
+                                ]
+                                inertiaMatrix [
+                                  0.001 0.001 0.001
+                                  0 0 0
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                        name "middle_arm_link"
+                        boundingObject USE middle_arm_link
+                        physics Physics {
+                          density -1
+                          mass 0.6
+                          centerOfMass [
+                            0 0 0
+                          ]
+                          inertiaMatrix [
+                            0.001 0.001 0.001
+                            0 0 0
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                  name "upper_arm_link"
+                  boundingObject USE upper_arm_link
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                    centerOfMass [
+                      0 0 0
+                    ]
+                    inertiaMatrix [
+                      0.001 0.001 0.001
+                      0 0 0
+                    ]
+                  }
+                }
+              }
+            ]
+            name "shoulder_link"
+            boundingObject USE shoulder_link
+            physics Physics {
+              density -1
+              mass 1
+              centerOfMass [
+                0 0 0
+              ]
+              inertiaMatrix [
+                0.001 0.001 0.001
+                0 0 0
+              ]
+            }
+          }
+        }
+      ]
+      name "base_link"
+      boundingObject USE base_link
+      physics Physics {
+        density -1
+        mass 5
+        centerOfMass [
+          0 0 0
+        ]
+        inertiaMatrix [
+          0.001 0.001 0.001
+          0 0 0
+        ]
+      }
+    }
+  ]
+  name "robot_arm"
+  physics Physics {
+    density -1
+    mass 5
+    centerOfMass [
+      0 0 0
+    ]
+    inertiaMatrix [
+      0.005 0.005 0.005
+      0 0 0
+    ]
+  }
+  controller "<extern>"
+}
+DEF Left Solid {
+  translation 0 0.5 0.25
+  children [
+    DEF CYLINDER Shape {
+      appearance PBRAppearance {
+        baseColor 0.9 0.6 0.1
+        roughness 1
+      }
+      geometry Cylinder {
+        height 0.5
+        radius 0.05
+      }
+    }
+  ]
+  boundingObject USE CYLINDER
+  physics Physics {
+    density -1
+    mass 1
+  }
+}
+DEF Right Solid {
+  translation -0.2 -0.4 0.35
+  children [
+    DEF CYLINDER Shape {
+      appearance PBRAppearance {
+        baseColor 0.5 0.5 0.6
+      }
+      geometry Cylinder {
+        height 0.7
+        radius 0.07
+      }
+    }
+  ]
+  boundingObject USE CYLINDER
+  physics Physics {
+    density -1
+    mass 1
+  }
+}
+DEF Top Solid {
+  translation -0.22 -0.41 0.77
+  rotation 0 0 1 4.692820414042842e-06
+  children [
+    DEF CYLINDER Shape {
+      appearance PBRAppearance {
+        baseColor 0.7 0.7 0.7
+      }
+      geometry Cylinder {
+        height 0.1
+        radius 0.07
+      }
+    }
+  ]
+  boundingObject USE CYLINDER
+  physics Physics {
+    density -1
+    mass 0.1
+  }
+}
+DEF object Solid {
+  translation -0.5 0 0.02
+  rotation -2.3464099999870814e-06 0.9999999999944944 2.3464099999870814e-06 1.5708
+  children [
+    DEF CYLINDER Shape {
+      appearance PBRAppearance {
+        baseColor 0.00485237 0.0960861 0.57499
+        metalness 0.5
+      }
+      geometry Cylinder {
+        height 0.2
+        radius 0.02
+      }
+    }
+  ]
+  name "solid-load"
+  boundingObject USE CYLINDER
+  physics Physics {
+    density -1
+    mass 0.05
+    damping Damping {
+    }
+  }
+}

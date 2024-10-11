@@ -1,0 +1,13 @@
+forward_arm:
+  ros__parameters:
+
+    controller_name: "forward_position_controller"
+    wait_sec_between_publish: 5
+    publish_topic: "/forward_position_controller/commands"
+
+    goal_names: ["pos1", "pos2", "pos3", "pos4", "pos5"]
+    pos1: [1.57, 0.5, 0.3, 0.1]
+    pos2: [0.0, 0.0, 0.0, 0.0]
+    pos3: [-1.57, -0.3, -0.3, -0.1]
+    pos4: [0.0, 0.0, 0.0, 0.0]
+    pos5: [3.14, 0.0, 0.0, 0.0]

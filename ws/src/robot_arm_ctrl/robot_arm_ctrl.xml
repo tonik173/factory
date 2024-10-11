@@ -1,0 +1,9 @@
+<library path="robot_arm_ctrl">
+  <class name="robot_arm_ctrl/RobotArmHardwareDriver"
+         type="robot_arm_ctrl::RobotArmHardwareDriver"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control robot arm using a system hardware interface-type.
+    </description>
+  </class>
+</library>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="robot_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Use this if parameters are set from the launch file, otherwise delete -->
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="mock_sensor_commands" default="false" />
+  <xacro:arg name="simulation_controllers" default="" />
+  <xacro:arg name="hardware_driver" default="real" />
+
+  <!-- Inlcudes -->
+  <xacro:include filename="model.xacro" />
+  <xacro:include filename="ros2_control.xacro" />
+
+  <!-- create link fixed to the "world" -->
+  <link name="world" />
+
+  <!-- Load robot's macro with parameters -->
+  <xacro:robot_arm prefix="$(arg prefix)" parent="world" >
+    <origin xyz="0 0 0" rpy="0 0 0" />          <!-- position robot in the world -->
+  </xacro:robot_arm>
+
+  <!-- Robot arm -->
+  <xacro:robot_arm_ros2_control
+      name="RobotArm"
+      name2="RobotHand"
+      prefix="$(arg prefix)"
+      mock_sensor_commands="$(arg mock_sensor_commands)" 
+      hardware_driver="$(arg hardware_driver)"/>
+
+  <xacro:property name="driver" value="$(arg hardware_driver)"/>
+
+  <!-- Gazebo plugin -->
+  <xacro:if value="${driver == 'gazebo'}">
+    <gazebo reference="world"/>
+    <gazebo>
+      <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <parameters>$(arg simulation_controllers)</parameters>
+        <controller_manager_node_name>$(arg prefix)controller_manager</controller_manager_node_name>
+      </plugin>
+    </gazebo>
+  </xacro:if>
+
+  <!-- Webots plugin -->
+  <xacro:if value="${driver == 'webots'}">
+    <webots>
+        <plugin type="webots_ros2_control::Ros2Control" />
+    </webots>
+  </xacro:if>   
+
+  <!-- Not working at this time -->
+  <gazebo reference="$(arg prefix)shoulder_link">
+    <material>Gazebo/Grey</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+</robot>

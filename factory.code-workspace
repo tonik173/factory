@@ -12,6 +12,10 @@
 		{
 			"name": "DOCKER",
 			"path": "docker",
-		}
+		},	
+		{
+			"name": "ROOT",
+			"path": ".",
+		}s
 	]
 }

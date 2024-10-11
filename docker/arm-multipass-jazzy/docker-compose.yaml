@@ -14,8 +14,9 @@ services:
       - "DISPLAY"
     volumes:
       - /home/$USER/github/factory:/home/${ROSUSERNAME}/github/factory
+      - /home/$USER/RosShared:/home/${ROSUSERNAME}/RosShared
     tty: true
     network_mode: host
     ipc: host
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:$MACOS_HOST"

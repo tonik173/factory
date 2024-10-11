@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="macros.xacro" />
+
+  <xacro:macro name="robot_arm" params="prefix parent *origin">
+
+    <!-- Base -->
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/base_link.stl" />
+        </geometry>
+        <material name="gray"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/base_link.stl" />
+        </geometry>
+        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      </collision>
+      <xacro:default_inertial mass="15"/>
+    </link>
+
+    <joint name="${prefix}base_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}base_link"/>
+      <origin rpy="0 0 ${pi}" xyz="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <!-- Shoulder -->
+    <link name="${prefix}shoulder_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/shoulder_link.stl" />
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/shoulder_link.stl" />
+        </geometry>
+        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      </collision>
+      <xacro:default_inertial mass="3"/>
+    </link>
+
+    <joint name="${prefix}shoulder_joint" type="continuous">
+      <origin xyz="0 0 0.2" rpy="${pi/2} 0 ${pi/2}" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}shoulder_link" />
+      <axis xyz="0 1 0" />
+
+    </joint>
+
+
+    <!-- Upper arm -->
+    <link name="${prefix}upper_arm_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/upper_arm_link.stl" />
+        </geometry>
+        <material name="gray"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/upper_arm_link.stl" />
+        </geometry>
+        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      </collision>
+      <xacro:default_inertial mass="5"/>
+    </link>
+
+    <joint name="${prefix}upper_arm_joint" type="revolute">
+      <origin xyz="0 0.205 0" rpy="0 0 0" />
+      <parent link="${prefix}shoulder_link" />
+      <child link="${prefix}upper_arm_link" />
+      <axis xyz="0 0 1" />
+      <limit lower="-${pi/2}" upper="${pi/2}" effort="200" velocity="3" />
+    </joint>
+    
+
+    <!-- Middle arm -->
+    <link name="${prefix}middle_arm_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/middle_arm_link.stl" />
+        </geometry>
+        <material name="gray"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/middle_arm_link.stl" />
+        </geometry>
+        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      </collision>
+      <xacro:default_inertial mass="3"/>
+    </link>
+
+    <joint name="${prefix}middle_arm_joint" type="revolute">
+      <origin xyz="0 0.4 0" rpy="0 0 0" />
+      <parent link="${prefix}upper_arm_link" />
+      <child link="${prefix}middle_arm_link" />
+      <axis xyz="0 0 1" />
+      <limit lower="-${pi}" upper="1" effort="200" velocity="3" />
+    </joint>
+
+
+    <!-- Fore arm -->
+    <link name="${prefix}fore_arm_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/fore_arm_link.stl" />
+        </geometry>
+        <material name="gray"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/fore_arm_link.stl" />
+        </geometry>
+        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>  
+      </collision>
+      <xacro:default_inertial mass="2"/>
+    </link>
+
+    <joint name="${prefix}fore_arm_joint" type="revolute">
+      <origin xyz="-0.35 0 0" rpy="0 0 ${pi/2}" />
+      <parent link="${prefix}middle_arm_link" />
+      <child link="${prefix}fore_arm_link" />
+      <axis xyz="0 0 1" />
+      <limit lower="-${pi}" upper="0" effort="200" velocity="3" />
+    </joint>
+
+
+    <!-- Effector -->
+    <link name="${prefix}effector_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/effector_link.stl" />
+        </geometry>
+        <material name="gray"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find robot_arm_ctrl)/meshes/effector_link.stl" />
+        </geometry>
+        <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+      </collision>
+      <xacro:default_inertial mass="0.2"/>
+    </link>
+
+    <joint name="${prefix}effector_joint" type="revolute">
+      <origin xyz="-0.188 0 0" rpy="0 0 0" />
+      <parent link="${prefix}fore_arm_link" />
+      <child link="${prefix}effector_link" />
+      <axis xyz="1 0 0" />
+      <limit lower="0" upper="${pi}" effort="200" velocity="3" />
+    </joint>
+
+
+    <!-- Finger, side: left|right -->
+    <xacro:macro name="finger" params="side">
+      <limit lower="0" upper="0.03" effort="100" velocity="3" />
+      
+      <xacro:if value="${side == 'right'}">
+        <xacro:property name="originY" value="-0.4" />
+        <xacro:property name="roll" value="0" />
+        <xacro:property name="lower" value="0.0" />
+        <xacro:property name="upper" value="0.03" />
+        <xacro:property name="axisZ" value="-1" />
+      </xacro:if>
+      <xacro:if value="${side == 'left'}">
+        <xacro:property name="originY" value="0.4" />
+        <xacro:property name="roll" value="${pi}" />
+        <xacro:property name="lower" value="-0.03" />
+        <xacro:property name="upper" value="0.0" />
+        <xacro:property name="axisZ" value="1" />
+      </xacro:if>
+
+      <link name="${prefix}finger_${side}_link">
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="file://$(find robot_arm_ctrl)/meshes/finger_${side}_link.stl" />
+          </geometry>
+          <material name="gray"/>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="file://$(find robot_arm_ctrl)/meshes/finger_${side}_link.stl" />
+          </geometry>
+          <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+        </collision>
+        <xacro:default_inertial mass="0.1"/>
+      </link>
+
+      <joint name="${prefix}finger_${side}_joint" type="prismatic">
+        <origin xyz="0.54 ${originY} 0" rpy="${roll} 0 0" />
+        <parent link="${prefix}effector_link" />
+        <child link="${prefix}finger_${side}_link" />
+        <axis xyz="0 0 ${axisZ}" />
+        <limit lower="${lower}" upper="${upper}" effort="100" velocity="3" />
+      </joint>
+
+    </xacro:macro>
+
+    <xacro:finger side="right" />
+    <xacro:finger side="left" />
+
+  </xacro:macro>
+</robot>
