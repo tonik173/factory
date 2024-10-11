@@ -2,18 +2,18 @@ services:
 
   # ROS2
   ros:
-    build: .
+    build: 
+      context: .
+      args:
+          USERNAME: "${ROSUSERNAME}"
+          USERID: "${ROSUSERID}"
+          GROUPID: "${ROSGROUPID}"
     container_name: arm-multipass-jazzy
-    user: 1001:1001
-    args:
-      USERNAME: ${USERNAME}
-      USERID: ${USERID}
-      GROUPID: ${GROUPID}
-
+    user: ${HOSTUSERID}:${ROSUSERID}
     environment:
       - "DISPLAY"
     volumes:
-      - /home/$USER/github/factory:/home/${USERNAME}/github/factory
+      - /home/$USER/github/factory:/home/${ROSUSERNAME}/github/factory
     tty: true
     network_mode: host
     ipc: host

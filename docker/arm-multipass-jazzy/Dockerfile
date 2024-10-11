@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/arm64v8/ros/tags
-FROM arm64v8/ros:jazzy-perception-noble    
+FROM arm64v8/ros:jazzy   
 
 # initialize setup
 RUN apt-get update
@@ -13,10 +13,28 @@ RUN apt-get install -y \
  apt-utils \
  iproute2
 
+ # install ros additions
+RUN apt-get install -y ros-jazzy-teleop-twist-keyboard
+RUN apt-get install -y ros-jazzy-rviz2
+RUN apt-get install -y ros-jazzy-rqt*
+RUN apt-get install -y ros-jazzy-xacro
+RUN apt-get install -y ros-jazzy-ros2-control
+RUN apt-get install -y ros-jazzy-ros2-controllers
+RUN apt-get install -y ros-jazzy-joint-state-publisher-gui 
+
+# install Gazebo
+RUN apt-get install -y ros-jazzy-ros-gz
+
+# webots connector
+RUN apt-get install -y ros-jazzy-webots-ros2
+
 # install cleanup
 RUN rm -rf /var/lib/apt/lists/*
 
 # user setup
+ARG USERNAME
+ARG USERID
+ARG GROUPID
 RUN groupadd --gid ${GROUPID} ${USERNAME} \
   && useradd -s /bin/bash --uid ${USERID} --gid ${GROUPID} -m ${USERNAME} \
   && mkdir /home/${USERNAME}/.config && chown ${USERID}:${GROUPID} /home/${USERNAME}/.config
