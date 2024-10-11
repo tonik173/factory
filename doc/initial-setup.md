@@ -74,3 +74,16 @@ sudo apt install terminator
 mkdir RosShared										### for using WebBots on the mac host
 ```
 
+
+
+
+
+Helpers
+
+```sh
+id -u  # returns UID
+id -un # returns username
+id -g  # returns GID
+id -un # returns groupname
+```
+
