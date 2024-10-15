@@ -73,11 +73,11 @@ def generate_launch_description():
                 {'use_sim_time': True},
             ],
         ),
-        Node(
-            package="controller_manager",
-            executable="spawner",
-            arguments=["fts_broadcaster", "--controller-manager", "/controller_manager"],
-        )
+#        Node(
+#            package="controller_manager",
+#            executable="spawner",
+#            arguments=["fts_broadcaster", "--controller-manager", "/controller_manager"],
+#        )
     ]
 
     # Webots ros2 controller manager

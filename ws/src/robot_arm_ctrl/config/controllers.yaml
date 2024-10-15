@@ -17,8 +17,8 @@ controller_manager:
     joint_trajectory_hand_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    fts_broadcaster:
-      type: force_torque_sensor_broadcaster/ForceTorqueSensorBroadcaster
+#    fts_broadcaster:
+#      type: force_torque_sensor_broadcaster/ForceTorqueSensorBroadcaster
 
 
 ########################################
@@ -31,7 +31,8 @@ forward_position_controller:
       - upper_arm_joint
       - middle_arm_joint
       - fore_arm_joint
-    interface_name: position
+    interface_name: 
+      position
 
 joint_trajectory_position_controller:
   ros__parameters:
@@ -68,7 +69,8 @@ forward_hand_controller:
       - effector_joint
       - finger_left_joint
       - finger_right_joint
-    interface_name: position    
+    interface_name: 
+      position    
 
 joint_trajectory_hand_controller:
   ros__parameters:
@@ -98,8 +100,8 @@ joint_trajectory_hand_controller:
 ########################################
 # sensors
 
-fts_broadcaster:
-  ros__parameters:
-    interface_names.force.x: tcp_fts_sensor/force.x
-    interface_names.torque.z: tcp_fts_sensor/torque.z
-    frame_id: tool_link
+#fts_broadcaster:
+#  ros__parameters:
+#    interface_names.force.x: tcp_fts_sensor/force.x
+#    interface_names.torque.z: tcp_fts_sensor/torque.z
+#    frame_id: tool_link
