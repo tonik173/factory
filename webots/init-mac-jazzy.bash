@@ -10,5 +10,5 @@ export DYLD_LIBRARY_PATH="$WEBOTS_HOME/lib/controller"
 export PYTHONPATH="$WEBOTS_HOME/Contents/lib/controller/python"
 export PYTHONIOENCODING="UTF-8"
 
-multipass mount /Users/komax/RosShared ros2-jazzy:/home/kaan/RosShared
-multipass info ros2-jazzy
+multipass mount /Users/komax/RosShared noble:/home/kaan/RosShared
+multipass info noble
