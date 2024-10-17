@@ -45,12 +45,13 @@ def generate_launch_description():
 
     # Controllers 
     controller_manager_timeout = ['--controller-manager-timeout', '50']
+    controller_manager_param_file = ["--param-file", control_params]
     robot_controller_spawners = [
         Node(
             package="controller_manager",
             executable="spawner",
             output='screen',
-            arguments=["joint_trajectory_position_controller"] + controller_manager_timeout,
+            arguments=["joint_trajectory_position_controller"] + controller_manager_param_file + controller_manager_timeout,
             parameters=[
                 {'use_sim_time': True},
             ],
@@ -59,7 +60,7 @@ def generate_launch_description():
             package="controller_manager",
             executable="spawner",
             output='screen',
-            arguments=["joint_trajectory_hand_controller"] + controller_manager_timeout,
+            arguments=["joint_trajectory_hand_controller"] + controller_manager_param_file + controller_manager_timeout,
             parameters=[
                 {'use_sim_time': True},
             ],

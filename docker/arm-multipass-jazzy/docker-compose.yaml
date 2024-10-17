@@ -1,6 +1,6 @@
 services:
 
-  # ROS2
+  # ROS2 Jazzy
   ros:
     build: 
       context: .
