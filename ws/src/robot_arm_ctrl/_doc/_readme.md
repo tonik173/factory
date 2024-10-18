@@ -36,9 +36,12 @@ Moves arm and hand simultaneously
 ros2 launch robot_arm_ctrl robot.launch.py controller_type:=joint-trajectory log_level:=info
 ros2 launch robot_arm_ctrl sim.gz.rviz.launch.py controller_type:=joint-trajectory log_level:=info
 ros2 launch robot_arm_ctrl sim.webots.rviz.launch.py
+ros2 launch robot_arm_ctrl sim.gazebo.rviz.launch.py
 # in a second terminal
 ros2 launch robot_arm_ctrl test_joint_trajectory_controller.launch.py log_level:=info
 ```
+
+ros2 launch robot_arm_ctrl trajectory_publisher.launch.py
 
 Open another terminal and run
 
