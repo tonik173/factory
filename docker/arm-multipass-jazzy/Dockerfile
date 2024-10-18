@@ -11,7 +11,8 @@ RUN apt-get install -y \
  terminator \
  iputils-ping \
  apt-utils \
- iproute2
+ iproute2 \
+ pip
 
  # install ros additions
 RUN apt-get install -y ros-jazzy-teleop-twist-keyboard
@@ -24,11 +25,17 @@ RUN apt-get install -y ros-jazzy-joint-state-publisher-gui
 
 # install Gazebo
 RUN apt-get install -y ros-jazzy-ros-gz
-#RUN apt-get update
-#RUN apt-get install -y ros-jazzy-gz-ros2-control
+
+# Did work for a while then stopped working
+# RUN apt-get update
+# RUN apt-get install -y ros-jazzy-gz-ros2-control
+# alternative: source local build in ws_jazzy
 
 # webots connector
 RUN apt-get install -y ros-jazzy-webots-ros2
+
+# Sparkplug
+RUN pip3 install --break-system-packages pysparkplug
 
 # install cleanup
 RUN rm -rf /var/lib/apt/lists/*
