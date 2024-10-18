@@ -1,5 +1,9 @@
 ### Prerequisits
 
+sudo apt install pip
+python3 -m pip install pysparkplug
+https://docs.ros.org/en/jazzy/How-To-Guides/Using-Python-Packages.htm
+
 ```sh
 cd <repo-path>/ws
 colcon build --packages-select robot_arm_ctrl
@@ -35,13 +39,21 @@ Moves arm and hand simultaneously
 ```sh
 ros2 launch robot_arm_ctrl robot.launch.py controller_type:=joint-trajectory log_level:=info
 ros2 launch robot_arm_ctrl sim.gz.rviz.launch.py controller_type:=joint-trajectory log_level:=info
-ros2 launch robot_arm_ctrl sim.webots.rviz.launch.py
-ros2 launch robot_arm_ctrl sim.gazebo.rviz.launch.py
+ros2 launch robot_arm_ctrl sim.webots.rviz.launch.py   # for webots
+ros2 launch robot_arm_ctrl sim.gazebo.rviz.launch.py   # for gazebo
 # in a second terminal
 ros2 launch robot_arm_ctrl test_joint_trajectory_controller.launch.py log_level:=info
 ```
 
+### Trajectory publisher
+
+Open another terminal and run
+
+```sh
 ros2 launch robot_arm_ctrl trajectory_publisher.launch.py
+```
+
+### ros2_control insights
 
 Open another terminal and run
 
@@ -61,17 +73,12 @@ ros2 control switch_controllers --activate joint_trajectory_position_controller 
 ros2 launch robot_arm_ctrl test_joint_trajectory_controller.launch.py
 ```
 
-
-ros2 run rqt_controller_manager rqt_controller_manager
-
-### ros2 control commands
+#### Other ros2_control commands
 
 ```sh
 ros2 control view_controller_chains
-ros2 run rqt_controller_manager rqt_controller_manager   ##
+ros2 run rqt_controller_manager rqt_controller_manager 
 ```
-
-rqt, load controller manager plugin
 
 ### References
 

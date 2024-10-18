@@ -54,8 +54,13 @@ sudo reboot
 ### Miscellaneous
 
 ```sh
-sudo timedatectl set-timezone Europe/Zurich
 sudo apt install terminator
+```
+
+### Final touches
+
+```sh
+sudo timedatectl set-timezone Europe/Zurich
 mkdir RosShared                                 # for using WebBots on the mac host
 ```
 
