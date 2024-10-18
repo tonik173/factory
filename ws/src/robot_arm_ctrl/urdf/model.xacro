@@ -7,6 +7,7 @@
 
     <!-- Base -->
     <link name="${prefix}base_link">
+
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -14,6 +15,7 @@
         </geometry>
         <material name="gray"/>
       </visual>
+
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -21,6 +23,7 @@
         </geometry>
         <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
       </collision>
+      
       <xacro:default_inertial mass="15"/>
     </link>
 

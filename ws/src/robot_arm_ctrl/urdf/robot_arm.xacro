@@ -29,30 +29,68 @@
 
   <xacro:property name="driver" value="$(arg hardware_driver)"/>
 
-  <!-- Gazebo plugin -->
-  <xacro:if value="${driver == 'gazebo'}">
-    <gazebo reference="world"/>
-    <gazebo>
-      <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-        <parameters>$(arg simulation_controllers)</parameters>
-        <controller_manager_node_name>$(arg prefix)controller_manager</controller_manager_node_name>
-      </plugin>
-    </gazebo>
-  </xacro:if>
-
   <!-- Webots plugin -->
   <xacro:if value="${driver == 'webots'}">
     <webots>
         <plugin type="webots_ros2_control::Ros2Control" />
     </webots>
-  </xacro:if>   
+  </xacro:if>  
 
-  <!-- Not working at this time -->
-  <gazebo reference="$(arg prefix)shoulder_link">
-    <material>Gazebo/Grey</material>
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <selfCollide>True</selfCollide>
-  </gazebo>
+  <!-- Gazebo plugin -->
+  <xacro:if value="${driver == 'gazebo'}">
+
+    <gazebo>
+      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <parameters>$(arg simulation_controllers)</parameters>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)base_link">
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)shoulder_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Yellow</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)upper_arm_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)middle_arm_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)fore_arm_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)effector_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)finger_left_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="$(arg prefix)finger_righ_link">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+  </xacro:if>
 
 </robot>
