@@ -9,6 +9,8 @@ from trajectory_msgs.msg import JointTrajectoryPoint
 from control_msgs.msg import JointTrajectoryControllerState
 from sensor_msgs.msg import JointState
 
+from sp_client import SparkplugEdgeNode
+
 class TrajectorySubscriber(Node):
 
     def __init__(self):
@@ -20,6 +22,7 @@ class TrajectorySubscriber(Node):
             10)
         self.subscription  # prevent unused variable warning
 
+        self.edgeNode = SparkplugEdgeNode('172.16.1.10', 1885, 'factory', 'robot_arm')
         self.get_logger().info('trajectory_subscriber inited')
 
     def listener_callback(self, msg):
@@ -31,8 +34,10 @@ class TrajectorySubscriber(Node):
         index = 0
         while index < len(joint_names):
             self.get_logger().info(f"{joint_names[index]} = {msg.reference.positions[index]}")
-            index = index + 1
 
+            self.edgeNode.send(joint_names[index], "position", "revolute", msg.reference.positions[index])
+
+            index = index + 1
 
 
 

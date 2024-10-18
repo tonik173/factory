@@ -53,7 +53,7 @@ def generate_launch_description():
             "-topic",
             "/robot_description",
             "-name",
-            "rrbot_system_position",
+            "robot_arm",
             "-allow_renaming",
             "true",
         ],

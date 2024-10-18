@@ -24,7 +24,8 @@ RUN apt-get install -y ros-jazzy-joint-state-publisher-gui
 
 # install Gazebo
 RUN apt-get install -y ros-jazzy-ros-gz
-RUN apt-get install -y ros-jazzy-gz-ros2-control
+#RUN apt-get update
+#RUN apt-get install -y ros-jazzy-gz-ros2-control
 
 # webots connector
 RUN apt-get install -y ros-jazzy-webots-ros2

@@ -15,6 +15,7 @@ services:
     volumes:
       - /home/$USER/github/factory:/home/${ROSUSERNAME}/github/factory
       - /home/$USER/RosShared:/home/${ROSUSERNAME}/RosShared
+      - /home/$USER/ros2_ws/jazzy_ws:/home/${ROSUSERNAME}/jazzy_ws
     tty: true
     network_mode: host
     ipc: host
