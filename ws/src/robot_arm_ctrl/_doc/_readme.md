@@ -65,6 +65,7 @@ ros2 run rqt_controller_manager rqt_controller_manager
 
 ```sh
 ros2 control view_controller_chains
+ros2 run rqt_controller_manager rqt_controller_manager   ##
 ```
 
 rqt, load controller manager plugin
