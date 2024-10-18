@@ -67,6 +67,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   robot_arm_ctrl/scripts/forward_position.py
   robot_arm_ctrl/scripts/joint_trajectory_position.py
+  robot_arm_ctrl/scripts/trajectory_publisher.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -3,7 +3,7 @@
 <package format="3">
   <name>robot_arm_ctrl</name>
   <version>1.0.0</version>
-  <description>Robot Arm with ros2_control.</description>
+  <description>Robot Arm with ros2_control</description>
 
   <maintainer email="tonik@n3xd.com">Toni Kaufmann</maintainer>
 

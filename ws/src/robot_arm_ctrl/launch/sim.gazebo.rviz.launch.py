@@ -90,6 +90,14 @@ def generate_launch_description():
         ],
     )
 
+#    trajectory_publisher = Node(
+#        package="robot_arm_ctrl",
+#        executable="trajectory_publisher.py",
+#        name="trajectory_publisher",
+#        arguments=['--ros-args', '--log-level', 'info'],
+#        output="both", 
+#    )
+
     return LaunchDescription([
         gazebo,
         robot_state_pub_node,
@@ -98,4 +106,5 @@ def generate_launch_description():
         joint_trajectory_position_controller_node,
         joint_trajectory_hand_controller_node,
         rviz_node,
+#        trajectory_publisher,
     ])

@@ -5,7 +5,7 @@ joint_trajectory_arm:
     wait_sec_between_publish: 4
     repeat: True
     
-    goal_names: ["pos1", "pos2", "pos3", "pos4", "pos5"]
+    goal_names: ["pos1", "pos2", "pos3", "pos4", "pos5", "pos6"]
     pos1:
       positions: [1.57,   0.5,  0.5,  0.1]
     pos2:
@@ -16,6 +16,8 @@ joint_trajectory_arm:
       positions: [0.0,    0.0,  0.0,  1.0]
     pos5:
       positions: [3.14,   0.0,  0.0,  0.0]
+    pos6:
+      positions: [1.57,   0.5,  0.5,  0.1]
 
     joints:
       - shoulder_joint

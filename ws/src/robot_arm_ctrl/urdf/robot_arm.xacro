@@ -46,19 +46,19 @@
     </gazebo>
 
     <gazebo reference="$(arg prefix)base_link">
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Gray</material>
     </gazebo>
 
     <gazebo reference="$(arg prefix)shoulder_link">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Yellow</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="$(arg prefix)upper_arm_link">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo reference="$(arg prefix)middle_arm_link">
@@ -70,7 +70,7 @@
     <gazebo reference="$(arg prefix)fore_arm_link">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo reference="$(arg prefix)effector_link">
@@ -82,13 +82,13 @@
     <gazebo reference="$(arg prefix)finger_left_link">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="$(arg prefix)finger_righ_link">
+    <gazebo reference="$(arg prefix)finger_right_link">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Orange</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
   </xacro:if>
