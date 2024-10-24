@@ -55,17 +55,23 @@ ros2 launch robot_arm_ctrl trajectory_publisher.launch.py
 
 ### ros2_control insights
 
+```sh
+ros2 launch robot_arm_ctrl trajectory_publisher.launch.py
+```
+
+### ros2 control commands
+
+Play with the ros2 controll. 
 Open another terminal and run
 
 ```sh
 ros2 control list_hardware_interfaces
 ros2 control list_controllers
 ros2 control list_hardware_components -v
-
 ros2 control set_controller_state joint_trajectory_position_controller active
 ```
 
-Replace controller
+#### Replace controller
 
 ```sh
 ros2 control load_controller joint_trajectory_position_controller --set-state inactive
@@ -73,12 +79,15 @@ ros2 control switch_controllers --activate joint_trajectory_position_controller 
 ros2 launch robot_arm_ctrl test_joint_trajectory_controller.launch.py
 ```
 
-#### Other ros2_control commands
+#### Other commands
 
 ```sh
 ros2 control view_controller_chains
 ros2 run rqt_controller_manager rqt_controller_manager 
 ```
+
+There is a rqt, controller manager plugin.
+
 
 ### References
 

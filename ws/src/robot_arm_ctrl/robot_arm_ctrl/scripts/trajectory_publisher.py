@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # The line above is required for mixed language packages
 
+import os
 import rclpy
 from rclpy.node import Node
 
@@ -15,6 +16,10 @@ class TrajectorySubscriber(Node):
 
     def __init__(self):
         super().__init__('trajectory_subscriber')
+
+        brokerHost = os.environ['MQTT_BROKER_HOST']
+        brokerPort = os.environ['MQTT_BROKER_PORT']
+
         self.subscription = self.create_subscription(
             JointTrajectoryControllerState,
             '/joint_trajectory_position_controller/controller_state',
