@@ -1,4 +1,3 @@
-import random
 import time
 from mqtt_spb_wrapper import *
 
@@ -6,11 +5,15 @@ _DEBUG = True
 
 class SparkplugNode:
 
-    def __init__(self, host, port, group_id, edge_node_id):
+    def __init__(self, host, port, group_id, edge_node_id, command_handler = None):
 
-        self.node = MqttSpbEntity(group_id, edge_node_id, None, _DEBUG)
+        self.node = MqttSpbEntityEdgeNode(group_id, edge_node_id, _DEBUG)
         self.node.on_command = self.callback_command
-        self.node.commands.set_value(name="run", value=False, callback_on_change=self.callback_cmd_run )
+        self.command_handler = command_handler
+
+        if (command_handler != None):
+            self.node.commands.set_value(name="run", value=False, callback_on_change=self.callback_cmd_run )
+
 
         zero = [0.0, 0.0, 0.0, 0.0]
         self.set_trajectory_move(origin = "shoulder_joint", unit = "revolute", p = zero, v = zero, a = zero, f = zero)
@@ -44,14 +47,17 @@ class SparkplugNode:
         self.node.publish_birth()
         print("SPARKPLUG connected")
 
-    def callback_command(cmd):
+    def callback_command(self, cmd):
         print("NODE received CMD: %s" % str(cmd))
 
-    def callback_cmd_run(data_value):
+        if (self.command_handler != None):
+            self.command_handler(cmd)
+
+    def callback_cmd_run(self, data_value):
         print("   CMD run received - value: " + str(data_value))
 
     def set_trajectory_move(self, origin: str, unit: str, p: [float], v: [float], a: [float], f: [float]):
-        name = (origin + '/' + '/' + unit).lower()   
+        name = (origin + '/' +  unit).lower()   
 
         self.node.data.set_value(
             name=name,

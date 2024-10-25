@@ -28,7 +28,7 @@ class TrajectorySubscriber(Node):
             10)
         self.subscription  # prevent unused variable warning
 
-        self.edgeNode = SparkplugNode('172.16.1.10', 1885, 'factory', 'robot_arm')
+        self.edgeNode = SparkplugNode('172.16.1.10', 1885, 'factory', 'robot_arm', self.command_callback)
         self.get_logger().info('trajectory_subscriber inited')
 
     def listener_callback(self, msg):
@@ -42,24 +42,24 @@ class TrajectorySubscriber(Node):
         index = 0
         while index < n:
 
-            print("*****************************")
+            #print("*****************************")
             # gets the values from the joints. adds the zero array to the end to make sure we always have at least n numbers in the array
             positions = [(msg.reference.positions + z)[index], (msg.feedback.positions + z)[index], (msg.error.positions + z)[index], (msg.output.positions + z)[index]]
-            print(positions)
+            #print(positions)
             velocities = [(msg.reference.velocities + z)[index], (msg.feedback.velocities + z)[index], (msg.error.velocities + z)[index], (msg.output.velocities + z)[index]] 
-            print(velocities)
+            #print(velocities)
             accelerations = [(msg.reference.accelerations + z)[index], (msg.feedback.accelerations + z)[index], (msg.error.accelerations + z)[index], (msg.output.accelerations + z)[index]]
-            print(accelerations)
+            #print(accelerations)
             effort = [(msg.reference.effort + z)[index], (msg.feedback.effort + z)[index], (msg.error.effort + z)[index], (msg.output.effort + z)[index]] 
-            print(effort)
-            print("*****************************")
+            #print(effort)
 
-            self.edgeNode.set_trajectory_move(joint_names[index], "revolute", positions, velocities, accelerations, effort)  
-            self.edgeNode.send()                      
+            #self.edgeNode.set_trajectory_move(joint_names[index], "revolute", positions, velocities, accelerations, effort)  
+            #self.edgeNode.send()                      
 
             index = index + 1
 
-
+    def command_callback(self, cmd):
+        print("TrajectorySubscriber received CMD: %s" % str(cmd))
 
 def main(args=None):
     rclpy.init(args=args)
