@@ -55,11 +55,7 @@ ros2 launch robot_arm_ctrl trajectory_publisher.launch.py
 
 ### ros2_control insights
 
-```sh
-ros2 launch robot_arm_ctrl trajectory_publisher.launch.py
-```
-
-### ros2 control commands
+#### ros2 control commands
 
 Play with the ros2 controll. 
 Open another terminal and run

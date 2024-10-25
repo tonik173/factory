@@ -68,7 +68,7 @@ install(PROGRAMS
   robot_arm_ctrl/scripts/forward_position.py
   robot_arm_ctrl/scripts/joint_trajectory_position.py
   robot_arm_ctrl/scripts/trajectory_publisher.py
-  robot_arm_ctrl/scripts/sp_client.py
+  robot_arm_ctrl/scripts/sp_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
