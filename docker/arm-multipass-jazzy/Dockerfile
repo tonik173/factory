@@ -67,9 +67,5 @@ RUN apt-get update \
 COPY entrypoint.sh /entrypoint.sh
 COPY bashrc /home/${USERNAME}/.bashrc
 
-ENV MACOS_HOST=${MACOS_HOST}
-ENV MQTT_BROKER_HOST=${MQTT_BROKER_HOST}
-ENV MQTT_BROKER_PORT=${MQTT_BROKER_PORT}
-
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 CMD ["bash"]

@@ -12,7 +12,8 @@ services:
     user: ${HOSTUSERID}:${ROSUSERID}
     environment:
       - "DISPLAY"
-      - MACOS_HOST:${MACOS_HOST}
+    env_file:
+      - .env
     volumes:
       - /home/$USER/github/factory:/home/${ROSUSERNAME}/github/factory
       - /home/$USER/RosShared:/home/${ROSUSERNAME}/RosShared
