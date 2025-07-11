@@ -1,4 +1,4 @@
-### Trobleshooting
+### Troubleshooting
 
 `ros-jazzy-gz-ros2-control` crashed, when installed with `apt-get` after noon 18.10.2024.
 
