@@ -1,5 +1,7 @@
 # factory
 
+![overview](./ws/src/robot_arm_ctrl/_doc/overview.png)
+
 ## About
 
 Installs
@@ -23,17 +25,6 @@ docker container rm -f arm-multipass-rolling-ros-1
 
 ## Build the robot arm example
 
-```sh
-cd src/ws
-colcon build --symlink-install
-```
+Follow the instructions here: [src/robot_arm_ctrl/_doc/_readme](src/robot_arm_ctrl/_doc/_readme.md)
 
-### Display robot in RViz
-
-Launches RViz with robot arm and the Joint State Publisher. If this works, the robot description in the URDF file is correct.
-
-```sh
-source install/setup.bash 
-ros2 launch robot_arm_ctrl display.launch.py
-```
-
+![screen recording](./ws/src/robot_arm_ctrl/_doc/screen-recording-1.gif)

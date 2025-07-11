@@ -8,14 +8,9 @@ Cloning and compiling
 
 did work the day before. Currently using this!
 
-
-
 ```sh
 apt-get install -y ros-jazzy-gz-ros2-control
 ### if this crashes
 source ~/jazzy_ws/install/setup.bash
 source local ws
 ```
-
-
-
